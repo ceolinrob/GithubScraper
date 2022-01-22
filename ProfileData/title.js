@@ -1,6 +1,5 @@
-const getTitle = async (Cheerio, body) => {
-  
-    let $ = Cheerio.load(body);
+const getTitle = async ($) => {
+    
     let title = $('h1').text().trim();
   
     console.log(title);

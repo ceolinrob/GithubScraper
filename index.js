@@ -1,19 +1,21 @@
 'use strict';
 
-// const Bluebird  = require('bluebird');
 const Cheerio   = require('cheerio');
-// const Request   = Bluebird.promisify(require('request'));
-const scrapeTitle = require('./title.js');
-const requestController = require('./requestController');
+const scrapeTitle = require('./ProfileData/title.js');
+const scrapeUrl = require('./ProfileData/url.js');
+const scrapeLocation = require('./ProfileData/location.js');
+const requestController = require('./RequestHandler/requestController');
 
 (async () => {
 
   var obj = [];
 
   var body = await requestController.getBody();
+  let $ = Cheerio.load(body);
 
-  var title = await scrapeTitle.getTitle(Cheerio, body);
-  console.log(title);
+  var title = await scrapeTitle.getTitle($);
+  var url = await scrapeUrl.getUrl($);
+  var location = await scrapeLocation.getLocation($);
 })();
 
 
