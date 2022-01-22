@@ -1,9 +1,9 @@
 'use strict';
 
 const Cheerio   = require('cheerio');
-const scrapeTitle = require('./ProfileData/title.js');
-const scrapeUrl = require('./ProfileData/url.js');
-const scrapeLocation = require('./ProfileData/location.js');
+const scrapeTitle = require('./ProfileData/titleScraper.js');
+const scrapeUrl = require('./ProfileData/urlScraper.js');
+const scrapeLocation = require('./ProfileData/locationScraper.js');
 const requestController = require('./RequestHandler/requestController');
 
 (async () => {
