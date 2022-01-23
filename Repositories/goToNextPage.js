@@ -10,7 +10,7 @@ const getNextPage = async ($) => {
         }
     });
 
-    return repositoriesLink;
+    return repositoriesLink ?? null;
 }
 
 module.exports = {
