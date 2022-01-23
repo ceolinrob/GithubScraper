@@ -1,6 +1,6 @@
 const getUrl = async ($) => {
   
-    let url = $("[itemprop = 'url']").text().trim();
+    let url = $("[itemprop = 'url']").first().text().trim();
   
     return url;
 }
