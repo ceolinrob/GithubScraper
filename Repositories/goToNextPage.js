@@ -1,5 +1,4 @@
 const getNextPage = async ($) => {
-  
     let nextPage = $(".next_page");
     var repositoriesLink = null;
 

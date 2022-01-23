@@ -4,7 +4,6 @@ const Request   = Bluebird.promisify(require('request'));
 const baseUrl = "https://github.com/";
 
 const getBody = async () => {
-
     let response = await Request({
         url: baseUrl + 'facebook',
         method: "GET",
