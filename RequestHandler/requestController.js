@@ -1,10 +1,12 @@
 const Bluebird  = require('bluebird');
 const Request   = Bluebird.promisify(require('request'));
 
+const baseUrl = "https://github.com/";
+
 const getBody = async () => {
 
   let response = await Request({
-    url: 'https://github.com/facebook',
+    url: baseUrl + 'facebook',
     method: "GET",
     headers: { 'Cache-Control': 'no-cache' },
     timeout: 10000
@@ -15,9 +17,19 @@ const getBody = async () => {
 }
 
 const getNextPage = async (url) => {
-
   let response = await Request({
-    url: url,
+    url: baseUrl + url,
+    method: "GET",
+    headers: { 'Cache-Control': 'no-cache' },
+    timeout: 10000
+  });
+
+    return response.body;
+}
+
+const getRepositories = async (url) => {
+  let response = await Request({
+    url: baseUrl + url,
     method: "GET",
     headers: { 'Cache-Control': 'no-cache' },
     timeout: 10000
@@ -27,5 +39,5 @@ const getNextPage = async (url) => {
 }
 
 module.exports = {
-    getBody, getNextPage
+    getBody, getNextPage, getRepositories
 };

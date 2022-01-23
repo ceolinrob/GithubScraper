@@ -1,11 +1,18 @@
-const getUrl = async ($) => {
+const getRepositoriesLink = async ($) => {
   
-    let url = $("[itemprop = 'url']").text().trim();
+    let repositoriesSearcher = $("a");
+    var repositoriesLink = null;
+
+    repositoriesSearcher.each((index, value) => {
+        let link = $(value).attr('href');
+        if ($(value).text().trim() == "Repositories"){
+            repositoriesLink = link;
+        }
+    });
   
-    console.log(url);
-    return url;
+    return repositoriesLink;
 }
 
 module.exports = {
-    getUrl
+    getRepositoriesLink
 };

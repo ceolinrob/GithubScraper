@@ -4,18 +4,25 @@ const Cheerio   = require('cheerio');
 const scrapeTitle = require('./ProfileData/titleScraper.js');
 const scrapeUrl = require('./ProfileData/urlScraper.js');
 const scrapeLocation = require('./ProfileData/locationScraper.js');
+const repositoriesScraper = require('./Repositories/repositoryScraper');
 const requestController = require('./RequestHandler/requestController');
 
 (async () => {
 
   var obj = [];
 
-  var body = await requestController.getBody();
-  let $ = Cheerio.load(body);
+  let body = await requestController.getBody();
+  let $body = Cheerio.load(body);
 
-  var title = await scrapeTitle.getTitle($);
-  var url = await scrapeUrl.getUrl($);
-  var location = await scrapeLocation.getLocation($);
+  let title = await scrapeTitle.getTitle($body);
+  let url = await scrapeUrl.getUrl($body);
+  let location = await scrapeLocation.getLocation($body);
+
+  let repositoriesLink = await repositoriesScraper.getRepositoriesLink($body);
+  let repositoriesBody = await requestController.getRepositories(repositoriesLink);
+  let $repo = Cheerio.load(repositoriesBody);
+
+  console.log($repo);
 })();
 
 
