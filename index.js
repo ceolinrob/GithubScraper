@@ -1,10 +1,15 @@
 'use strict';
 
-const Cheerio   = require('cheerio');
-const scrapeTitle = require('./ProfileData/titleScraper.js');
-const scrapeUrl = require('./ProfileData/urlScraper.js');
-const scrapeLocation = require('./ProfileData/locationScraper.js');
-const repositoriesScraper = require('./Repositories/repositoryScraper');
+const Cheerio                 = require('cheerio');
+
+const scrapeTitle             = require('./ProfileData/titleScraper.js');
+const scrapeUrl               = require('./ProfileData/urlScraper.js');
+const scrapeLocation          = require('./ProfileData/locationScraper.js');
+
+const repositoriesLinkFinder  = require('./Repositories/getRepositoriesLink');
+const repositoriesList        = require('./Repositories/getRepositoriesInPage');
+const nextPage                = require ('./Repositories/goToNextPage.js');
+
 const requestController = require('./RequestHandler/requestController');
 
 (async () => {
@@ -18,47 +23,18 @@ const requestController = require('./RequestHandler/requestController');
   let url = await scrapeUrl.getUrl($body);
   let location = await scrapeLocation.getLocation($body);
 
-  let repositoriesLink = await repositoriesScraper.getRepositoriesLink($body);
+  let repositoriesLink = await repositoriesLinkFinder.getRepositoriesLink($body);
   let repositoriesBody = await requestController.getRepositories(repositoriesLink);
   let $repo = Cheerio.load(repositoriesBody);
 
-  console.log($repo);
+  let repoList = await repositoriesList.getRepos($repo);
+  console.log(repoList);
+  let newLink = await nextPage.getNextPage($repo);
+
+  repositoriesBody = await requestController.getRepositories(newLink);
+  $repo = Cheerio.load(repositoriesBody);
+  repoList = await repositoriesList.getRepos($repo);
+  console.log(repoList);
+
 })();
 
-
-
-
-
-
-
-// (async () => {
-
-//   let response = await Request({
-//     url: 'https://github.com/facebook',
-//     method: "GET",
-//     headers: { 'Cache-Control': 'no-cache' },
-//     timeout: 10000
-//   })
-
-//   console.log(response.statusCode);
-
-//   let $ = Cheerio.load(response.body);
-//   let title = $('h1').text().trim();
-//   let url = $("[itemprop = 'url']").text().trim();
-//   let location = $("[itemprop = 'location']").text().trim();
-//   // let numberOfRepositories = $("[class = 'repo']").length;
-//   // [0].children.map(e => e.nodeValue).join('');
-
-
-
-//   console.log(title);
-//   console.log(url);
-//   console.log(location);
-//   // console.log(repo);
-
-// })()
-
-// (async () => {
-//   let title = await scrapeTitle.getTitle(requestUrl, requestMethod, requestHeaders, Cheerio, Request);
-//   console.log(title);
-// })();
