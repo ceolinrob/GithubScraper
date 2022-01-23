@@ -1,10 +1,12 @@
 const getRepos = async ($) => {
-    let arr = [];
+    let arrayDto = [];
     $("[itemprop = 'name codeRepository']").each((key, value) => {
-        arr.push($(value).text().trim());
+        let object = {};
+        object.name = $(value).text().trim();
+        arrayDto.push(object);
     });
   
-    return arr;
+    return arrayDto;
 }
 
 module.exports = {

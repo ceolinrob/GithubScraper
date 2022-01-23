@@ -7,7 +7,7 @@ const requestController       = require('../RequestHandler/requestController');
 
 
 const getRepositoriesList = async ($, Cheerio) => {
-    var obj = [];
+    var objectDto = [];
 
     let repositoriesLink = await repositoriesLinkFinder.getRepositoriesLink($);
     let repositoriesBody = await requestController.getRepositories(repositoriesLink);
@@ -19,10 +19,10 @@ const getRepositoriesList = async ($, Cheerio) => {
         let newLink = await nextPage.getNextPage($);
         repositoriesBody = await requestController.getRepositories(newLink);
         $ = Cheerio.load(repositoriesBody);
-        obj.push(...repoList);
+        objectDto.push(...repoList);
     }
   
-    return obj;
+    return objectDto;
 }
 
 module.exports = {

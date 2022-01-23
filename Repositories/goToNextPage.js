@@ -1,15 +1,15 @@
 const getNextPage = async ($) => {
     let nextPage = $(".next_page");
-    var repositoriesLink = null;
+    var repositoriesLinkDto = null;
 
     nextPage.each((index, value) => {
         let link = $(value).attr('href');
         if ($(value).text().trim() == "Next"){
-            repositoriesLink = link;
+            repositoriesLinkDto = link;
         }
     });
 
-    return repositoriesLink ?? null;
+    return repositoriesLinkDto ?? null;
 }
 
 module.exports = {

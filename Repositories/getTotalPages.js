@@ -1,6 +1,6 @@
 const getTotalPages = async ($) => {
-    let numberOfPages = $('.current').attr('data-total-pages');
-    return numberOfPages;
+    let numberOfPagesDto = $('.current').attr('data-total-pages');
+    return numberOfPagesDto;
 }
 
 module.exports = {

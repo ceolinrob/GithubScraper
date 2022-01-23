@@ -1,8 +1,8 @@
 const getTitle = async ($) => {
     
-    let title = $('h1').text().trim();
+    let titleDto = $('h1').text().trim();
   
-    return title;
+    return titleDto;
 }
 
 module.exports = {

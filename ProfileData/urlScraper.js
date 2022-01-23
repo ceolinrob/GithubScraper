@@ -1,7 +1,7 @@
 const getUrl = async ($) => {
-    let url = $("[itemprop = 'url']").first().text().trim();
+    let urlDto = $("[itemprop = 'url']").first().text().trim();
   
-    return url;
+    return urlDto;
 }
 
 module.exports = {

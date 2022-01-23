@@ -1,8 +1,8 @@
 const getLocation = async ($) => {
   
-    let location = $("[itemprop = 'location']").text().trim();
+    let locationDto = $("[itemprop = 'location']").text().trim();
   
-    return location;
+    return locationDto;
 }
 
 module.exports = {
